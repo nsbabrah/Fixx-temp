@@ -1,0 +1,164 @@
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Temp</title>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.2.0.min.js"
+  integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+  crossorigin="anonymous"></script>
+
+
+
+
+<script src="../static/js/ma-cmms-client-js-2.5.2.js"></script>
+<script src="../static/js/ma-cmms-client-js-2.5.2.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+var fiixCmmsClient = new FiixCmmsClient();
+fiixCmmsClient.setBaseUri('https://raspberry.masandbox.com/api/');
+fiixCmmsClient.setAppKey('');
+fiixCmmsClient.setAuthToken('');
+fiixCmmsClient.setPKey('');
+
+
+
+// RPC call to Ping with simple callback
+
+
+fiixCmmsClient.rpc({
+  "name": "Ping",
+  "callback": function(ret) {
+    if (!ret.error) {
+      console.log("You have successfully made your first call to the API.");
+    } else output(ret.error);
+  }
+});
+// fiixCmmsClient.find({
+//   "className": "Asset",
+//   "fields": "id,Fisktank,dasdasdasdasdasdsa",
+//   "filters": [{"ql": "intAssetLocationID = ?", "parameters": [408634]}],
+//   "callback": function(ret) {
+//     if (!ret.error) {
+//         console.log(ret.objects);
+//     } else output(ret.error);
+//   }
+
+// Update an asset
+// fiixCmmsClient.change({
+//   "className" : "Asset",
+//   "changeFields" : "strDescription, strModel, strMake",
+//   "object" : {
+//     "id": 469604,
+//     "strDescription" : "you have nothing ",
+//     "strModel" : "Not the same model anymore",
+//     "strMake" : "Not the same make anymore",
+//     "qtyStockCount" : 4
+//   },
+//   "fields" : "strName, strModel, strMake, qtyStockCount",
+//   "callback": function(ret) {
+//     if (!ret.error) {
+//       console.log(ret.object);
+//     } else output(ret.error);
+//   }
+// });
+
+// fiixCmmsClient.add({
+//   "className" : "Asset",
+//   "fields": "id, strName, strSerialNumber",
+//   "object" : {
+//     "strCity" : "Toronto",
+//     "strNotes" : "Newly created asset via the API",
+//     "strProvince" : "ON",
+//     "strName" : "New temperature issue",
+//     "strInventoryCode" : "AAAX1",
+//     "qtyStockCount" : 1,
+//     "strDescription" : "Our new asset",
+//     "strModel" : "The model of our new asset",
+//     "strBarcode" : "1111011101110111",
+//     "strMake" : "The make of our new asset",
+//     "strSerialNumber" : "1234567890",
+//     "intSiteID": 408456
+//   },
+// List sites
+// fiixCmmsClient.find({
+//   "className": "Asset",
+//   "filters": [{"ql": "bolIsSite = ?", "parameters": [1]}],
+//   "fields": "id, strName",
+//   "callback": function(ret) {
+//     if (!ret.error) {
+//       console.log(ret.objects);
+//     } else output(ret.error);
+//   }
+// });
+// // Create a work order
+// fiixCmmsClient.add({
+//   "className" : "WorkOrder",
+//   "object" : {
+//     "intSiteID": 469603
+//     //"intWorkOrderStatusID": 101
+//   },
+//   "fields" : "id",
+//   "callback": function(ret) {
+//     if (!ret.error) {
+//       WORKORDER_ID = ret.object.id;
+//       console.log(ret.object);
+//     } else console.log(ret.error);
+//   }
+// });
+// List sites
+fiixCmmsClient.find({
+  "className": "Asset",
+  "filters": [{"ql": "bolIsSite = ?", "parameters": [1]}],
+  "fields": "id, strName",
+  "callback": function(ret) {
+    if (!ret.error) {
+        console.log(ret.objects);
+    } else output(ret.error);
+  }
+});
+
+fiixCmmsClient.find({
+  "className": "WorkOrderStatus",
+  "fields": "id, strName, intSysCode",
+  "orderBy": "intSysCode",
+  "callback": function(ret) {
+    if (!ret.error) {
+    console.log(ret.objects);
+    } else output(ret.error);
+  }
+});
+
+fiixCmmsClient.add({
+  "className" : "WorkOrder",
+  "object" : {
+    "intSiteID": 469603,
+    "intWorkOrderStatusID":15414
+  },
+  "fields" : "id",
+  "callback": function(ret) {
+    if (!ret.error) {
+      WORKORDER_ID = ret.object.id;
+    console.log(ret.objects);
+    } else   console.log(ret.error);
+  }
+});
+});
+</script>
+</head>
+
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+
+</body>
+
+</script>
+</html>
+<!-- <script src="../static/js/fiix-api.js"></script> -->
